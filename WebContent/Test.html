@@ -1,0 +1,41 @@
+<h1 align=center style="text-transform: capitalize;">View All User Order Request</h1>
+<br><br>
+<table align=center border=1
+style="
+    background: lavender;
+    text-align: center;
+    width: 1165px;
+    border: ridge;
+    line-height: 2;
+    color: navy;
+    font-weight: bold;
+    border-radius: 12px;
+">
+<%
+ 	Class.forName("com.mysql.jdbc.Driver");
+ 	Connection con=DriverManager.getConnection("jdbc:mysql://localhost/police","root","root");
+ 	PreparedStatement query=con.prepareStatement("select * from myorder where status ='Waiting'");                                               
+ 	ResultSet rs=query.executeQuery();
+%>
+<tr style="background: sandybrown;"><td>ID</td><td>User Name</td><td>E-Mail</td><td>Tree Name</td><td>Total Unit</td><td>image</td><td>Status</td></tr>
+<%
+	while(rs.next())
+	{
+		%>
+			<tr>
+				<td><%=rs.getString("id") %></td>
+				<td><%=rs.getString("name") %></td>
+				<td><%=rs.getString("email") %></td>
+				<td><%=rs.getString("district") %></td>
+				<td><%=rs.getString("unit") %></td>
+				<td><img src="Order/<%=rs.getString("image") %>" ></td>
+				<td><a href="Last.jsp?id=<%=rs.getString("id")%>&&email=<%=rs.getString("email")%>&&unit=<%=rs.getString("unit")%>&&tree=<%=rs.getString("district")%>">Send</a></td>
+			
+				
+			</tr>
+		<%
+	 }
+%>
+</table>	
+<br><br>
+<center><a href="AHome.jsp">Click To Back</a></center>
